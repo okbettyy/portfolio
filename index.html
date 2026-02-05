@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <link href="styles.css" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://unpkg.com/98.css">
+
+  <title>Portfolio OS</title>
+</head>
+
+<body>
+
+<!-- 🟦 BOOT SCREEN -->
+<div id="boot-screen">
+
+  <div class="boot-wrap">
+
+    <img
+      src="https://win98icons.alexmeub.com/icons/png/windows-0.png"
+      class="boot-logo">
+
+    <h1>Microsoft Windows 98</h1>
+
+    <div class="boot-bar">
+      <div class="boot-bar-fill"></div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- 🪟 LOADING WINDOW -->
+<div id="loading-screen">
+
+  <div class="window"
+    id="loading-window"
+    style="width:400px; display:block;">
+
+    <div class="title-bar">
+      <div class="title-bar-text">
+        Installing Portfolio OS…
+      </div>
+      <div class="title-bar-controls">
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+
+    <div class="window-body">
+
+      <p id="status-text"
+        style="margin-bottom:20px;">
+        Status: Booting system...
+      </p>
+
+      <div class="field-row"
+        style="align-items:center;">
+
+        <div
+          class="progress-indicator segmented"
+          style="flex-grow:1; height:30px;">
+
+          <span id="load-bar"
+            class="progress-indicator-bar"
+            style="width:0%; display:block;">
+          </span>
+
+        </div>
+
+        <button onclick="crashSite()">
+          Cancel
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div id="desktop">
+
+  <div class="ui-desktop">
+
+    <div class="ui-icon"
+      onclick="openWindow('main-window')">
+
+      <img width="32"
+        src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+
+      <span>BIO.txt</span>
+    </div>
+
+  </div>
+
+
+  <!-- Mascot -->
+  <div id="mascot-container">
+    <img
+      src="your-pixel-model.gif"
+      class="pixel-art">
+
+    <div class="speech-bubble">
+      Feeling chic today...
+    </div>
+  </div>
+
+
+  <!-- Main Window -->
+  <div class="window draggable"
+    id="main-window">
+
+    <div class="title-bar">
+      <div class="title-bar-text">
+        MODEL_PROFILE.exe
+      </div>
+
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"
+          onclick="closeWindow('main-window')">
+        </button>
+      </div>
+    </div>
+
+    <div class="window-body">
+
+      <p class="intro-text">
+        "It does not matter how slow you go
+        as long as you do not stop."
+      </p>
+
+      <section class="field-row"
+        style="justify-content:center; gap:10px;">
+
+        <button
+          onclick="openWindow('projects-window')">
+          Projects
+        </button>
+
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- Projects Window -->
+  <div class="window draggable"
+    id="projects-window"
+    style="display:none; width:400px;">
+
+    <div class="title-bar">
+      <div class="title-bar-text">
+        LOOKBOOK_2024.exe
+      </div>
+
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"
+          onclick="closeWindow('projects-window')">
+        </button>
+      </div>
+    </div>
+
+    <div class="window-body">
+      <p>Featured Editorial Works</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="taskbar">
+
+  <button id="start-button">
+    <img
+      src="https://win98icons.alexmeub.com/icons/png/windows-0.png"
+      width="16">
+    Start
+  </button>
+
+  <div id="clock">12:00</div>
+
+</div>
+
+<audio id="startup-sound"
+  src="assets/startup.mp3"
+  preload="auto">
+</audio>
+
+<script src="main.js"></script>
+
+</body>
+</html>

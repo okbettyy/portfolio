@@ -1,0 +1,112 @@
+:root {
+    --chic-pink: #ff69b4;
+    --chic-gradient: linear-gradient(90deg, #ff0080, #cc00ff);
+    --desktop-bg: #ffc0cb;
+}
+
+#desktop {
+  opacity: 0;
+  transition: opacity .6s ease;
+  position: fixed;
+  inset: 0;
+   background:
+    linear-gradient(
+      180deg,
+      #ffc0cb,
+      #ff69b4,
+      #ff0080
+    );
+
+  opacity: 0;
+  transition: opacity .6s ease;
+
+  overflow: hidden;
+}
+/* Icons */
+.ui-desktop {
+  position:absolute;
+  top:20px;
+  left:20px;
+  opacity:0;
+  transition:opacity .6s ease;
+}
+
+.ui-icon {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:70px;
+  cursor:pointer;
+  margin-bottom:20px;
+}
+
+.ui-icon span {
+  font-size:12px;
+  margin-top:4px;
+}
+
+
+/* Taskbar */
+#taskbar {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:30px;
+  background:#c0c0c0;
+  border-top:2px solid #fff;
+  display:flex;
+  align-items:center;
+  padding:2px;
+  box-sizing:border-box;
+}
+
+
+#clock {
+  margin-left:auto;
+  border:2px inset #fff;
+  padding:0 10px;
+  font-size:12px;
+}
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: var(--chic-gradient) !important; /* Win98 color */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99998;
+
+  opacity: 1;
+  transition: opacity .6s ease;
+}
+
+
+#boot-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: black; /* hides gradient */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  z-index: 99999;
+}
+
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+  background: black; /* fallback */
+}
