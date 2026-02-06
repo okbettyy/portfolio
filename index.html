@@ -1,199 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
 
-  <link href="styles.css" rel="stylesheet">
-  <link rel="stylesheet"
-    href="https://unpkg.com/98.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <title>Portfolio OS</title>
+<link rel="stylesheet" href="https://unpkg.com/98.css">
+<link rel="stylesheet" href="styles.css">
+
+<title>Portfolio OS</title>
 </head>
 
 <body>
 
-<!-- 🟦 BOOT SCREEN -->
-<div id="boot-screen">
-
-  <div class="boot-wrap">
-
-    <img
-      src="https://win98icons.alexmeub.com/icons/png/windows-0.png"
-      class="boot-logo">
-
-    <h1>Microsoft Windows 98</h1>
-
-    <div class="boot-bar">
-      <div class="boot-bar-fill"></div>
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- 🪟 LOADING WINDOW -->
+<!-- LOADER -->
 <div id="loading-screen">
-
-  <div class="window"
-    id="loading-window"
-    style="width:400px; display:block;">
-
+  <div class="window" style="width:360px">
     <div class="title-bar">
       <div class="title-bar-text">
-        Installing Portfolio OS…
-      </div>
-      <div class="title-bar-controls">
-        <button aria-label="Close"></button>
+        Designing Portfolio…
       </div>
     </div>
 
     <div class="window-body">
+      <p id="status-text">Status: Booting...</p>
 
-      <p id="status-text"
-        style="margin-bottom:20px;">
-        Status: Booting system...
-      </p>
-
-      <div class="field-row"
-        style="align-items:center;">
-
-        <div
-          class="progress-indicator segmented"
-          style="flex-grow:1; height:30px;">
-
-          <span id="load-bar"
-            class="progress-indicator-bar"
-            style="width:0%; display:block;">
-          </span>
-
-        </div>
-
-        <button onclick="crashSite()">
-          Cancel
-        </button>
-
+      <div class="progress-indicator segmented">
+        <span id="load-bar"
+          class="progress-indicator-bar"
+          style="width:0%">
+        </span>
       </div>
-
     </div>
   </div>
 </div>
 
-
+<!-- DESKTOP -->
 <div id="desktop">
 
+  <!-- ICON GRID -->
   <div class="ui-desktop">
 
-    <div class="ui-icon"
-      onclick="openWindow('main-window')">
-
+    <div class="ui-icon" ondblclick="openWindow('bio-window')">
       <img width="32"
-        src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
-
+      src="https://win98icons.alexmeub.com/icons/png/notepad_file-1.png">
       <span>BIO.txt</span>
     </div>
 
-  </div>
-
-
-  <!-- Mascot -->
-  <div id="mascot-container">
-    <img
-      src="your-pixel-model.gif"
-      class="pixel-art">
-
-    <div class="speech-bubble">
-      Feeling chic today...
-    </div>
-  </div>
-
-
-  <!-- Main Window -->
-  <div class="window draggable"
-    id="main-window">
-
-    <div class="title-bar">
-      <div class="title-bar-text">
-        MODEL_PROFILE.exe
-      </div>
-
-      <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"
-          onclick="closeWindow('main-window')">
-        </button>
-      </div>
+    <div class="ui-icon" ondblclick="openWindow('resume-window')">
+      <img width="32"
+      src="https://win98icons.alexmeub.com/icons/png/notepad-0.png">
+      <span>Resume.txt</span>
     </div>
 
-    <div class="window-body">
+    <div class="ui-icon" ondblclick="openWindow('projects-folder')">
+      <img width="32"
+      src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png">
+      <span>Projects</span>
+    </div>
 
-      <p class="intro-text">
-        "It does not matter how slow you go
-        as long as you do not stop."
-      </p>
+    <div class="ui-icon" ondblclick="openWindow('explorer-window')">
+      <img width="32"
+      src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
+      <span>My Computer</span>
+    </div>
 
-      <section class="field-row"
-        style="justify-content:center; gap:10px;">
+    <div class="ui-icon" ondblclick="openWindow('paintWindow')">
+      <img width="32"
+      src="https://win98icons.alexmeub.com/icons/png/paint_file-0.png">
+      <span>JSpaint</span>
+    </div>
 
-        <button
-          onclick="openWindow('projects-window')">
-          Projects
-        </button>
+  </div>
+</div>
 
-      </section>
-
+<!-- BIO -->
+<div class="window" id="bio-window">
+  <div class="title-bar">
+    <div class="title-bar-text">Bio - WordPad</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"
+        onclick="closeWindow('bio-window')"></button>
     </div>
   </div>
 
+  <div class="window-body">
+<textarea class="wordpad-area">
+Dial-Up Scripting Command Language…
 
-  <!-- Projects Window -->
-  <div class="window draggable"
-    id="projects-window"
-    style="display:none; width:400px;">
+With a bachelor in Frontend & Mobile Development, I have a passion 
+for crafting engaging and user-friendly digital experiences.
+</textarea>
+  </div>
+</div>
 
-    <div class="title-bar">
-      <div class="title-bar-text">
-        LOOKBOOK_2024.exe
-      </div>
+<!-- RESUME -->
+<div class="window" id="resume-window">
+  <div class="title-bar">
+    <div class="title-bar-text">Resume - Notepad</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"
+        onclick="minimizeWindow('resume-window')"></button>
+      <button aria-label="Maximize"
+        onclick="maximizeWindow('resume-window')"></button>
+      <button aria-label="Close"
+        onclick="closeWindow('resume-window')"></button>
+    </div>
+  </div>
 
-      <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"
-          onclick="closeWindow('projects-window')">
-        </button>
-      </div>
+  <div class="window-body">
+<textarea class="wordpad-area">
+Name: Bettine
+Role: Frontend Developer
+</textarea>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="window" id="projects-folder">
+  <div class="title-bar">
+    <div class="title-bar-text">Projects</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"
+        onclick="closeWindow('projects-folder')"></button>
+    </div>
+  </div>
+
+  <div class="window-body folder-grid">
+    <div class="folder-item"
+      ondblclick="openWindow('photos-folder')">
+      📁 Photos
     </div>
 
-    <div class="window-body">
-      <p>Featured Editorial Works</p>
+    <div class="folder-item">🌐 portfolio.exe</div>
+
+    <div class="folder-item"
+      onclick="window.open('https://linkedin.com','_blank')">
+      🔗 LinkedIn
+    </div>
+  </div>
+</div>
+
+<!-- PHOTOS -->
+<div class="window" id="photos-folder" style="width:520px;">
+  <div class="title-bar">
+    <div class="title-bar-text">Photos</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"
+        onclick="closeWindow('photos-folder')"></button>
+    </div>
+  </div>
+
+  <div class="window-body photo-grid">
+    <img src="img/photo1.jpg">
+    <img src="img/photo2.jpg">
+    <img src="img/photo3.jpg">
+  </div>
+</div>
+
+<!-- 🧠 MY COMPUTER (WIN98 EXPLORER) -->
+<div class="window"
+     id="explorer-window"
+     style="width:760px;display:none;">
+
+  <!-- TITLE -->
+  <div class="title-bar">
+    <div class="title-bar-text">My Computer</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"
+        onclick="closeWindow('explorer-window')"></button>
+    </div>
+  </div>
+
+  <!-- MENU BAR -->
+  <div class="window-body">
+    File &nbsp; Edit &nbsp; View &nbsp; Go &nbsp; Favorites &nbsp; Help
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="window-body field-row">
+    <button>Back</button>
+    <button>Forward</button>
+    <button>Up</button>
+    <button>Cut</button>
+    <button>Copy</button>
+    <button>Paste</button>
+  </div>
+
+  <!-- ADDRESS BAR -->
+  <div class="window-body field-row">
+    <label>Address:</label>
+    <input type="text"
+           value="My Computer"
+           style="width:100%"
+           readonly>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="window-body"
+       style="display:flex;height:320px;">
+
+    <!-- LEFT TREE PANEL -->
+    <div class="sunken-panel"
+         style="width:200px;margin-right:6px;overflow:auto;">
+
+      <ul class="tree-view">
+        <li>
+          <details open>
+            <summary>My Computer</summary>
+            <ul>
+              <li>(A:) Floppy</li>
+              <li>(C:) Projects</li>
+              <li>(D:) Photos</li>
+              <li>Control Panel</li>
+              <li>Printers</li>
+              <li>Dial-Up Networking</li>
+              <li>Scheduled Tasks</li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+
     </div>
 
+    <!-- RIGHT ICON AREA -->
+    <div class="sunken-panel"
+         style="flex:1;padding:12px;">
+
+      <div style="
+        display:flex;
+        gap:40px;
+        flex-wrap:wrap;
+        text-align:center;
+      ">
+
+        <div ondblclick="openWindow('projects-folder')">
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-0.png">
+          <div>(C:)</div>
+        </div>
+
+        <div ondblclick="openWindow('photos-folder')">
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/cd_drive-0.png">
+          <div>(D:)</div>
+        </div>
+
+        <div ondblclick="openWindow('resume-window')">
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/notepad_file-1.png">
+          <div>Resume</div>
+        </div>
+
+        <div ondblclick="openWindow('bio-window')">
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/notepad_file-1.png">
+          <div>Bio.txt</div>
+        </div>
+
+        <div>
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/printer-0.png">
+          <div>Printers</div>
+        </div>
+
+        <div>
+          <img width="32"
+          src="https://win98icons.alexmeub.com/icons/png/network_normal_two_pcs-0.png">
+          <div>Dial-Up Networking</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <p class="status-bar-field">6 object(s)</p>
+    <p class="status-bar-field">My Computer</p>
   </div>
 
 </div>
 
-<div id="taskbar">
 
+<!-- PAINT -->
+<div class="window" id="paintWindow" style="width:700px;">
+  <div class="title-bar">
+    <div class="title-bar-text">jspaint.exe</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"
+        onclick="closeWindow('paintWindow')"></button>
+    </div>
+  </div>
+
+  <div class="window-body" style="height:500px;padding:0;">
+    <iframe src="https://jspaint.app"
+      width="100%" height="100%" frameborder="0"></iframe>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
   <button id="start-button">
-    <img
-      src="https://win98icons.alexmeub.com/icons/png/windows-0.png"
-      width="16">
+    <img width="16"
+    src="https://win98icons.alexmeub.com/icons/png/windows-0.png">
     Start
   </button>
-
-  <div id="clock">12:00</div>
-
+  <div id="clock"></div>
 </div>
 
 <audio id="startup-sound"
-  src="assets/startup.mp3"
-  preload="auto">
-</audio>
+src="assets/startup.mp3"
+preload="auto"></audio>
 
 <script src="main.js"></script>
 

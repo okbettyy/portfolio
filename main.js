@@ -1,260 +1,183 @@
-/* 🪟 Window Controls */
-function openWindow(id) {
-  const win = document.getElementById(id);
-  if (win) {
-    win.style.display = "block";
+/* ---------------- WINDOW CONTROL ---------------- */
+
+function openWindow(id){
+  const win=document.getElementById(id);
+  if(!win) return;
+
+  function minimizeWindow(id){
+  const win=document.getElementById(id);
+  if(win) win.style.display="none";
+}
+
+  win.style.display="block";
+  win.style.top="120px";
+  win.style.left="220px";
+  bringToFront(win);
+}
+
+function closeWindow(id){
+  const win=document.getElementById(id);
+  if(win) win.style.display="none";
+}
+
+function bringToFront(win){
+  document.querySelectorAll(".window").forEach(w=>w.style.zIndex="10");
+
+  win.style.zIndex="100";
+}
+
+/* ---------------- DRAG ---------------- */
+
+function initDrag(win){
+  const bar=win.querySelector(".title-bar");
+  if(!bar) return;
+
+  let x=0,y=0,down=false;
+
+  bar.onmousedown=e=>{
+    down=true;
     bringToFront(win);
-  }
-}
-
-function closeWindow(id) {
-  const win = document.getElementById(id);
-  if (win) win.style.display = "none";
-}
-
-function bringToFront(win) {
-  document.querySelectorAll(".window")
-    .forEach(w => w.style.zIndex = "10");
-
-  win.style.zIndex = "100";
-}
-
-
-/* 🖱️ Draggable */
-function initDraggable(win) {
-
-  const bar = win.querySelector(".title-bar");
-  if (!bar) return;
-
-  bar.onmousedown = e => {
-
-    bringToFront(win);
-
-    let shiftX =
-      e.clientX -
-      win.getBoundingClientRect().left;
-
-    let shiftY =
-      e.clientY -
-      win.getBoundingClientRect().top;
-
-    function moveAt(x, y) {
-      win.style.left = x - shiftX + "px";
-      win.style.top = y - shiftY + "px";
-    }
-
-    function onMove(e) {
-      moveAt(e.pageX, e.pageY);
-    }
-
-    document.addEventListener(
-      "mousemove",
-      onMove
-    );
-
-    document.onmouseup = () => {
-      document.removeEventListener(
-        "mousemove",
-        onMove
-      );
-      document.onmouseup = null;
-    };
+    x=e.clientX-win.offsetLeft;
+    y=e.clientY-win.offsetTop;
   };
 
-  bar.ondragstart = () => false;
+  document.onmouseup=()=>down=false;
+
+  document.onmousemove=e=>{
+    if(!down) return;
+    win.style.left=e.clientX-x+"px";
+    win.style.top=e.clientY-y+"px";
+  };
 }
 
+/* ---------------- START MENU ---------------- */
 
-/* 🔊 Startup Sound Fix */
-function playStartupSound() {
+const startBtn=document.getElementById("start-button");
+const startMenu=document.getElementById("start-menu");
 
-  const sound =
-    document.getElementById(
-      "startup-sound"
-    );
-
-  if (!sound) return;
-
-  sound.currentTime = 0;
-
-  sound.play().catch(() => {
-
-    /* Fallback click */
-    document.addEventListener(
-      "click",
-      () => {
-        sound.play().catch(()=>{});
-      },
-      { once: true }
-    );
-
-  });
+if(startBtn){
+  startBtn.onclick=()=>{
+    startMenu.style.display=
+      startMenu.style.display==="block"
+      ?"none":"block";
+  };
 }
 
+/* ---------------- LOADER ---------------- */
 
-/* 💿 Loading Sequence */
-function startLoading() {
+function startLoading(){
 
-  const bar =
-    document.getElementById("load-bar");
+  const bar=document.getElementById("load-bar");
+  const text=document.getElementById("status-text");
+  const screen=document.getElementById("loading-screen");
+  const desktop=document.getElementById("desktop");
 
-  const text =
-    document.getElementById(
-      "status-text"
-    );
+  let progress=0;
 
-  const screen =
-    document.getElementById(
-      "loading-screen"
-    );
-
-  const desktop =
-    document.getElementById("desktop");
-
-  let progress = 0;
-
-  const messages = [
+  const msgs=[
     "Booting Portfolio OS...",
     "Loading supermodel.dll...",
-    "Installing confidence.exe...",
     "Applying lip gloss...",
     "Rendering struts..."
   ];
 
-  const interval =
-    setInterval(() => {
+  const int=setInterval(()=>{
 
-      progress +=
-        Math.floor(Math.random()*10)+3;
+    progress+=10;
+    if(progress>100) progress=100;
 
-      if (progress > 100)
-        progress = 100;
+    bar.style.width=progress+"%";
+    text.innerHTML=
+      "Status: "+
+      msgs[Math.floor(progress/25)];
 
-      bar.style.width =
-        progress + "%";
+    if(progress>=100){
 
-      let i = Math.floor(
-        (progress/100) *
-        messages.length
-      );
+      clearInterval(int);
 
-      text.innerHTML = messages[i];
+      setTimeout(()=>{
 
-      if (progress >= 100) {
+        screen.style.opacity="0";
+        desktop.style.opacity="1";
 
-        clearInterval(interval);
+        const s=document.getElementById("startup-sound");
+        if(s){
+          s.currentTime=0;
+          s.play().catch(()=>{});
+        }
 
-        setTimeout(() => {
+        setTimeout(()=>{
+          screen.style.display="none";
+        },600);
 
-          playStartupSound();
+      },600);
+    }
 
-          screen.style.opacity = "0";
-          desktop.style.opacity = "1";
-
-          document
-            .querySelector(
-              ".ui-desktop"
-            )
-            ?.style.setProperty(
-              "opacity","1"
-            );
-
-          setTimeout(() => {
-            screen.style.display =
-              "none";
-          }, 500);
-
-        }, 500);
-      }
-
-    }, 200);
+  },200);
 }
 
+/* ---------------- CLOCK ---------------- */
 
-/* 💥 Crash Screen */
-function crashSite() {
-
-  document.body.innerHTML = `
-    <div style="
-      background:#0000AA;
-      color:white;
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      font-family:monospace;
-      text-align:center;
-      padding:40px;
-    ">
-      <h2>Windows</h2>
-      <p>A fatal exception 0E has occurred</p>
-      <p>PortfolioOS has been shut down</p>
-      <br>
-      <p>Press CTRL+ALT+DEL to restart</p>
-    </div>
-  `;
-}
-
-
-/* ⏰ Clock */
-function startClock() {
-
-  const clock =
-    document.getElementById("clock");
-
-  function updateClock() {
-
-    const now = new Date();
-
-    clock.textContent =
-      now.toLocaleTimeString([],{
+setInterval(()=>{
+  const c=document.getElementById("clock");
+  if(c){
+    c.textContent=
+      new Date().toLocaleTimeString([],{
         hour:"2-digit",
         minute:"2-digit"
       });
   }
+},1000);
 
-  updateClock();
-  setInterval(updateClock,1000);
+/* ---------------- INIT ---------------- */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  startLoading();
+
+  document.querySelectorAll(".window").forEach(initDrag);
+});
+
+
+function maximizeWindow(id) {
+  const win = document.getElementById(id);
+
+  if (win.classList.contains("maximized")) {
+    win.classList.remove("maximized");
+    win.style.width = "420px";
+    win.style.height = "auto";
+    win.style.top = "120px";
+    win.style.left = "160px";
+  } else {
+    win.classList.add("maximized");
+    win.style.top = "0";
+    win.style.left = "0";
+    win.style.width = "100%";
+    win.style.height = "calc(100% - 30px)";
+  }
+}
+
+function showFolder(name){
+
+  document.querySelectorAll(".file-view").forEach(f=>f.style.display="none");
+
+  const active = document.getElementById("folder-"+name);
+  if(active) active.style.display="flex";
 }
 
 
-/* 🟦 Boot Sequence */
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+function showFolder(name){
 
-    const boot =
-      document.getElementById(
-        "boot-screen"
-      );
+  document
+    .querySelectorAll(".file-view")
+    .forEach(f=>f.style.display="none");
 
-    const loader =
-      document.getElementById(
-        "loading-screen"
-      );
+  const folder =
+    document.getElementById("folder-"+name);
 
-    loader.style.display = "none";
-
-    setTimeout(() => {
-
-      boot.style.display = "none";
-      loader.style.display = "flex";
-
-      startLoading();
-
-    }, 2500);
-
-
-    /* Draggable windows */
-    document
-      .querySelectorAll(
-        ".window.draggable"
-      )
-      .forEach(initDraggable);
-
-
-    startClock();
-
+  if(folder){
+    folder.style.display="flex";
   }
-);
+}
+
+
